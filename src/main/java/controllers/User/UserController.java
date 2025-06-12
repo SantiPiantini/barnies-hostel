@@ -17,7 +17,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    public UserService getReserveService() {
+    public UserService getUserService() {
+
     }
 
 }
