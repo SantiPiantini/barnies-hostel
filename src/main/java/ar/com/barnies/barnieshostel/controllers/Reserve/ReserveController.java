@@ -17,7 +17,7 @@ public class ReserveController {
     }
 
     @PostMapping()
-    public ResponseEntity<Void> add(@RequestBody Reserve reserve) {
+    public ResponseEntity<Void> add(@RequestBody Reserve reserve) throws Exception{
         reserveService.createReserve(reserve);
         return ResponseEntity.noContent().build();
     }

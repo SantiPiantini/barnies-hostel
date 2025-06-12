@@ -4,6 +4,7 @@ import ar.com.barnies.barnieshostel.models.Reserve.Reserve;
 import org.springframework.stereotype.Service;
 import ar.com.barnies.barnieshostel.services.Reserve.ReserveRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -37,5 +38,10 @@ public class ReserveRepositoryImpl implements ReserveRepository {
     @Override
     public void update(Reserve reserve) {
         springReserveRepository.save(reserve);
+    }
+
+    @Override
+    public List<Reserve> findConflictingReserves(Integer roomId, LocalDate checkInDate, LocalDate checkOutDate) {
+        return springReserveRepository.findConflictingReserves(roomId, checkInDate, checkOutDate);
     }
 }

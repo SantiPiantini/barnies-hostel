@@ -15,7 +15,14 @@ public class ReserveServiceImpl implements ReserveService{
     }
 
     @Override
-    public void createReserve(Reserve reserve) {
+    public void createReserve(Reserve reserve) throws Exception {
+        //Revisar que el userId exista, revisar que el room id exista.
+
+        List<Reserve> reservesOccupated = reserveRepository.findConflictingReserves(reserve.getRoomId(), reserve.getCheckInDate(), reserve.getCheckOutDate());
+
+        if (!reservesOccupated.isEmpty()){
+            throw new Exception("room not disponible in that dates.");
+        }
         reserveRepository.create(reserve);
     }
 
