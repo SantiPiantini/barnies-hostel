@@ -1,4 +1,4 @@
- package users.User;
+package users.User;
 
 import models.User.User;
 import java.util.List;
