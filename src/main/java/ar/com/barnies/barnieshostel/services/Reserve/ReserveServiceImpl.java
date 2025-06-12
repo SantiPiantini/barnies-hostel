@@ -1,9 +1,11 @@
-package services.Reserve;
+package ar.com.barnies.barnieshostel.services.Reserve;
 
-import models.Reserve.Reserve;
+import ar.com.barnies.barnieshostel.models.Reserve.Reserve;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ReserveServiceImpl implements ReserveService{
 
     private final ReserveRepository reserveRepository;

@@ -1,14 +1,14 @@
-package controllers.Reserve;
+package ar.com.barnies.barnieshostel.controllers.Reserve;
 
-import models.Reserve.Reserve;
+import ar.com.barnies.barnieshostel.models.Reserve.Reserve;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import services.Reserve.ReserveService;
+import ar.com.barnies.barnieshostel.services.Reserve.ReserveService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/reserve")
+@RequestMapping("/api/reserves")
 public class ReserveController {
     private final ReserveService reserveService;
 

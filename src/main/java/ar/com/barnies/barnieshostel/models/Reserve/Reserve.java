@@ -1,9 +1,6 @@
-package models.Reserve;
+package ar.com.barnies.barnieshostel.models.Reserve;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -12,13 +9,22 @@ import java.time.LocalDate;
 public class Reserve {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "reserve_id")
     private Integer id;
 
-    //@Column(name = "price") --> Esto hay que hacerlo con cada columna en relacion al nombre en la BD
+    @Column(name = "price")
     private double price;
+
+    @Column(name = "room_id")
     private Integer roomId;
+
+    @Column(name = "user_id")
     private Integer userId;
+
+    @Column(name = "check_in_date")
     private LocalDate checkInDate;
+
+    @Column(name = "check_out_date")
     private LocalDate checkOutDate;
 
     public Reserve(Integer id, double price, Integer roomId, Integer userId, LocalDate checkInDate, LocalDate checkOutDate) {
@@ -28,6 +34,9 @@ public class Reserve {
         this.userId = userId;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
+    }
+
+    public Reserve() {
     }
 
     public Integer getId() {

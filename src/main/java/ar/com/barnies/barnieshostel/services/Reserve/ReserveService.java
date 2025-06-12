@@ -1,6 +1,6 @@
-package services.Reserve;
+package ar.com.barnies.barnieshostel.services.Reserve;
 
-import models.Reserve.Reserve;
+import ar.com.barnies.barnieshostel.models.Reserve.Reserve;
 
 import java.util.List;
 
