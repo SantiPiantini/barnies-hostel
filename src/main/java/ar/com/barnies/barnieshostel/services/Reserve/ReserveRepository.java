@@ -1,7 +1,8 @@
-package services.Reserve;
+package ar.com.barnies.barnieshostel.services.Reserve;
 
-import models.Reserve.Reserve;
+import ar.com.barnies.barnieshostel.models.Reserve.Reserve;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ReserveRepository {
@@ -10,4 +11,5 @@ public interface ReserveRepository {
     public List<Reserve> getAll();
     public void delete(Integer id);
     public void update(Reserve reserve);
+    public List<Reserve> findConflictingReserves(Integer roomId, LocalDate checkInDate, LocalDate checkOutDate);
 }

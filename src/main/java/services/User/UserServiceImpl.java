@@ -14,6 +14,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void createUser(User user) {
+        boolean exist = userRepository.getAll()
+                .stream()
+                .anyMatch(u -> u.getDni().equals(user.getDni()));
+        if (exist) {
+            throw new RuntimeException("User already exists");
+        }
         userRepository.create(user);
     }
 
@@ -34,6 +40,11 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void updateUser(User user) {
+        User existing = userRepository.getById(user.getUserID());
+        if (existing == null) {
+            throw new RuntimeException("User does not exist");
+        }
+        userRepository.update(user);
         userRepository.update(user);
     }
 }
