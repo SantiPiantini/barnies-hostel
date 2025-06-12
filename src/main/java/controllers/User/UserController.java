@@ -6,7 +6,6 @@ import org.springframework.web.bind.ResponseEntity;
 import services.User.UserService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
@@ -17,8 +16,42 @@ public class UserController {
         this.userService = userService;
     }
 
-    public UserService getUserService() {
+    @PostMapping()
+    public ResponseEntity<void> add(@RequestBody User user){
+        userService.createUser(user);
+        return ResponseEntity.noContent().build();
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getById(@PathVariable Integer id) throws Exception{
+
+        User user = userService.getUserById(id);
+
+        return ResponseEntity.ok(user);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<User>> getAll(){
+
+        List<User> users = userService.getAllUsers();
+
+        return ResponseEntity.ok(users);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+
+        userService.deleteUser(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> update(@RequestBody User user){
+
+        userService.updateUser(user);
+
+        return ResponseEntity.noContent().build();
     }
 
 }
