@@ -14,6 +14,7 @@ public class Reserve {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    //@Column(name = "price") --> Esto hay que hacerlo con cada columna en relacion al nombre en la BD
     private double price;
     private Integer roomId;
     private Integer userId;
