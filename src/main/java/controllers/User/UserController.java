@@ -8,6 +8,8 @@ import services.User.UserService;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
+@RequestMapping("/api/user")
 public class UserController {
     private final UserService userService;
 
@@ -17,4 +19,5 @@ public class UserController {
 
     public UserService getReserveService() {
     }
+
 }
