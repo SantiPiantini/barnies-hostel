@@ -21,4 +21,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleGeneral(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno: " + ex.getMessage());
     }
+
+    @ExceptionHandler(ReserveNotFoundException.class)
+    public ResponseEntity<String> handleReserveNotFound(ReserveNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
 }

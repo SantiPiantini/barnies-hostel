@@ -1,5 +1,6 @@
 package ar.com.barnies.barnieshostel.services.Reserve;
 
+import ar.com.barnies.barnieshostel.exceptions.ReserveNotFoundException;
 import ar.com.barnies.barnieshostel.models.Reserve.Reserve;
 import ar.com.barnies.barnieshostel.models.User.User;
 import ar.com.barnies.barnieshostel.models.room.Room;
@@ -47,18 +48,31 @@ public class ReserveServiceImpl implements ReserveService{
 
     @Override
     public List<Reserve> getAllReserves() {
-        return reserveRepository.getAll();
+        try {
+            return reserveRepository.getAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener la lista de reservas: " + e.getMessage());
+            }
     }
 
-    @Override
-    public Reserve getReserveById(Integer id) throws Exception{
-        return reserveRepository.getById(id);
-    }
 
     @Override
-    public void deleteReserve(Integer id) {
+public Reserve getReserveById(Integer id) throws Exception {
+    Reserve reserve = reserveRepository.getById(id);
+    if (reserve == null) {
+        throw new ReserveNotFoundException("Reserva con ID " + id + " no encontrada.");
+    }
+    return reserve;
+}
+
+    @Override
+    public void deleteReserve(Integer id) throws Exception {
+        Reserve existing = reserveRepository.getById(id);
+        if (existing == null) {
+            throw new ReserveNotFoundException("Reserva con ID " + id + " no encontrada.");
+        }
         reserveRepository.delete(id);
-    }
+}
 
     @Override
     public void updateReserve(Reserve reserve) throws Exception {

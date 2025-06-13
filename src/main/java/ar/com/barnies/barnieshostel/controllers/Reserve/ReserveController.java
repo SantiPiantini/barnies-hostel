@@ -40,7 +40,7 @@ public class ReserveController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id){
+    public ResponseEntity<Void> delete(@PathVariable Integer id) throws Exception{
 
         reserveService.deleteReserve(id);
 
