@@ -5,6 +5,7 @@ import ar.com.barnies.barnieshostel.services.User.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserRepositoryImpl implements UserRepository {
@@ -24,8 +25,8 @@ public class UserRepositoryImpl implements UserRepository {
         return springUserRepository.findAll();
     }
 
-    public User getByID(Integer id) throws Exception{
-        return springUserRepository.findById(id).orElseThrow(() -> new Exception("id user not found"));
+    public Optional<User> getByID(Integer id) {
+        return springUserRepository.findById(id);
     }
 
     @Override
