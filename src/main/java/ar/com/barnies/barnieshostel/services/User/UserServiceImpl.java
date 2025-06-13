@@ -46,6 +46,15 @@ public class UserServiceImpl implements UserService{
         if (existing == null) {
             throw new RuntimeException("User does not exist");
         }
+
+        if (user.getDni() == null) {
+            user.setDni(existing.getDni());
+        }
+
+        if (user.getUsername() == null) {
+            user.setUsername(existing.getUsername());
+        }
+
         userRepository.update(user);
     }
 }

@@ -48,8 +48,8 @@ public class ReserveController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Reserve> update(@RequestBody Reserve reserve){
-
+    public ResponseEntity<Reserve> update(@PathVariable Integer id ,@RequestBody Reserve reserve) throws Exception{
+        reserve.setId(id);
         reserveService.updateReserve(reserve);
 
         return ResponseEntity.noContent().build();

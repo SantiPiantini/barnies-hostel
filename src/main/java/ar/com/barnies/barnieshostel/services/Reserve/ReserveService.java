@@ -9,5 +9,5 @@ public interface ReserveService {
     public Reserve getReserveById(Integer id) throws Exception;
     public List<Reserve> getAllReserves();
     public void deleteReserve(Integer id);
-    public void updateReserve(Reserve reserve);
+    public void updateReserve(Reserve reserve) throws Exception;
 }

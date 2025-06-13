@@ -1,5 +1,6 @@
 package ar.com.barnies.barnieshostel.services.room;
 
+import ar.com.barnies.barnieshostel.models.Reserve.Reserve;
 import ar.com.barnies.barnieshostel.models.room.Room;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,23 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void updateRoom(Room room) {
+    public void updateRoom(Room room) throws Exception{
+        Room existing = roomServiceRepo.getRoomById(room.getId());
+        if (existing == null) {
+            throw new RuntimeException("room does not exist");
+        }
+
+        if (room.getName() == null){
+            room.setName(existing.getName());
+        }
+
+        if (room.getCapacity() == null){
+            room.setCapacity(existing.getCapacity());
+        }
+
+        if (room.getStatus() == null){
+            room.setStatus(existing.getStatus());
+        }
         roomServiceRepo.updateRoom(room);
     }
 }

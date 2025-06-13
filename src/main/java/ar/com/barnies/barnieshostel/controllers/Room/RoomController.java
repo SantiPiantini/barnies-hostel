@@ -49,7 +49,8 @@ public class RoomController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody Room room) {
+    public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody Room room) throws Exception {
+        room.setId(id);
         roomService.updateRoom(room);
         return ResponseEntity.noContent().build();
     }

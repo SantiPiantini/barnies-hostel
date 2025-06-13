@@ -7,6 +7,7 @@ import ar.com.barnies.barnieshostel.services.User.UserService;
 import ar.com.barnies.barnieshostel.services.room.RoomService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -30,6 +31,14 @@ public class ReserveServiceImpl implements ReserveService{
 
         List<Reserve> reservesOccupated = reserveRepository.findConflictingReserves(reserve.getRoomId(), reserve.getCheckInDate(), reserve.getCheckOutDate());
 
+        if (reserve.getCheckInDate().isBefore(LocalDate.now())){
+            throw new Exception("check in date cant be older than today.");
+        }
+
+        if (reserve.getCheckOutDate().isBefore(reserve.getCheckInDate())){
+            throw new Exception("ckeck out date cant be older than check in date.");
+        }
+
         if (!reservesOccupated.isEmpty()){
             throw new Exception("room not disponible in that dates.");
         }
@@ -52,7 +61,36 @@ public class ReserveServiceImpl implements ReserveService{
     }
 
     @Override
-    public void updateReserve(Reserve reserve) {
+    public void updateReserve(Reserve reserve) throws Exception {
+        Reserve existing = reserveRepository.getById(reserve.getId());
+        if (existing == null) {
+            throw new RuntimeException("Reserve does not exist");
+        }
+
+        if (reserve.getRoomId() == null){
+            reserve.setRoomId(existing.getRoomId());
+        } else {
+            roomService.getRoomById(reserve.getRoomId());
+        }
+
+        if (reserve.getUserId() == null){
+            reserve.setUserId(existing.getUserId());
+        } else {
+            userService.getUserById(reserve.getUserId());
+        }
+
+        if (reserve.getCheckInDate() == null){
+            reserve.setCheckInDate(existing.getCheckInDate());
+        } else if (reserve.getCheckInDate().isBefore(LocalDate.now())){
+            throw new Exception("check in date update cant be older than today.");
+        }
+
+        if (reserve.getCheckOutDate() == null){
+            reserve.setCheckOutDate(existing.getCheckOutDate());
+        } else if (reserve.getCheckOutDate().isBefore(reserve.getCheckInDate())){
+            throw new Exception("ckeck out date update cant be older than check in date.");
+        }
+
         reserveRepository.update(reserve);
     }
 }
