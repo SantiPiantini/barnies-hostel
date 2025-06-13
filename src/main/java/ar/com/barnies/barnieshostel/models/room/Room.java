@@ -19,11 +19,15 @@ public class Room {
     @Column(name = "status")
     private String status;
 
-    public Room(Integer id, String name, Integer capacity, String status) {
+    @Column(name = "price")
+    private double price;
+
+    public Room(Integer id, String name, Integer capacity, String status, double price) {
         this.id = id;
         this.name = name;
         this.capacity = capacity;
         this.status = status;
+        this.price = price;
     }
 
     public Room() {
@@ -59,5 +63,13 @@ public class Room {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

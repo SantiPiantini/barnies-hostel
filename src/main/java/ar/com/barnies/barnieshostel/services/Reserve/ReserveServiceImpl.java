@@ -32,6 +32,10 @@ public class ReserveServiceImpl implements ReserveService{
 
         List<Reserve> reservesOccupated = reserveRepository.findConflictingReserves(reserve.getRoomId(), reserve.getCheckInDate(), reserve.getCheckOutDate());
 
+        if (reserve.getPrice() != roomExist.getPrice()){
+            throw new Exception("amount entered is different from room price");
+        }
+
         if (reserve.getCheckInDate().isBefore(LocalDate.now())){
             throw new Exception("check in date cant be older than today.");
         }

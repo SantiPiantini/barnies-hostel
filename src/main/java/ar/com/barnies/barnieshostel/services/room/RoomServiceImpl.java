@@ -77,6 +77,10 @@ public class RoomServiceImpl implements RoomService {
             room.setStatus(existing.getStatus());
         }
 
+        if (room.getPrice() == 0){
+            room.setPrice(existing.getPrice());
+        }
+
         roomRepository.updateRoom(room);
     }
 }
