@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository {
-    public void create(User user);
-    Optional<User> getByID(Integer id);
+    public void create(User user) throws Exception;
+    Optional<User> getByID(Integer id) ;
     public List<User> getAll();
     public void delete(Integer Id);
-    public void update(User user);
+    public void update(User user) ;
 }

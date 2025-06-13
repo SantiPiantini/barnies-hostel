@@ -1,5 +1,6 @@
 package ar.com.barnies.barnieshostel.services.User;
 
+import ar.com.barnies.barnieshostel.exceptions.InternalServerError;
 import ar.com.barnies.barnieshostel.exceptions.UserAlreadyExistsException;
 import ar.com.barnies.barnieshostel.exceptions.UserNotFoundException;
 import ar.com.barnies.barnieshostel.models.User.User;
@@ -26,7 +27,13 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistsException("El usuario con DNI " + user.getDni() + " ya existe.");
         }
 
-        userRepository.create(user);
+        try{
+            userRepository.create(user);
+        }catch(Exception e){
+            throw new InternalServerError("Error al crear el usuario");
+        }
+
+
     }
 
     @Override

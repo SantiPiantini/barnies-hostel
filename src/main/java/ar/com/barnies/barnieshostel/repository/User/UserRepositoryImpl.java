@@ -16,8 +16,14 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void create (User user){
-        springUserRepository.save(user);
+    public void create (User user) throws Exception{
+        try{
+            springUserRepository.save(user);
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new Exception(e.getMessage());
+        }
+
     }
 
     @Override
