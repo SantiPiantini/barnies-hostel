@@ -8,7 +8,7 @@ CREATE TABLE "user" (
 -- Create the Room table
 CREATE TABLE room (
     room_id SERIAL PRIMARY KEY,
-    room_number INT NOT NULL UNIQUE,
+    room_number VARCHAR(20) NOT NULL UNIQUE,
     bed_count INT NOT NULL,
     status VARCHAR(20) NOT NULL CHECK (status IN ('AVAILABLE', 'OCCUPIED', 'MAINTENANCE'))
 );

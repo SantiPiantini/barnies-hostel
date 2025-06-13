@@ -2,8 +2,8 @@ package ar.com.barnies.barnieshostel.models.User;
 
 import jakarta.persistence.*;
 
-
 @Entity
+@Table(name = "\"user\"", schema = "public")
 public class User {
 
     @Id
