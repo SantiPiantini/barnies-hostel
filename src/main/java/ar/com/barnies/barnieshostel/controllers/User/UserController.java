@@ -1,11 +1,10 @@
 package ar.com.barnies.barnieshostel.controllers.User;
 
-
+import ar.com.barnies.barnieshostel.models.Reserve.Reserve;
 import ar.com.barnies.barnieshostel.models.User.User;
 import ar.com.barnies.barnieshostel.services.User.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
@@ -38,9 +37,13 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id){
-
         userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Reserve> update(@PathVariable Integer id, @RequestBody User user) throws Exception{
+        userService.updateUser(user);
         return ResponseEntity.noContent().build();
     }
 }

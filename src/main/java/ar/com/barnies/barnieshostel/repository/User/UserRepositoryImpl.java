@@ -25,7 +25,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     public User getByID(Integer id) throws Exception{
-        return springUserRepository.findById(id).orElseThrow(() -> new Exception("id not found"));
+        return springUserRepository.findById(id).orElseThrow(() -> new Exception("id user not found"));
     }
 
     @Override

@@ -27,7 +27,7 @@ public class ReserveRepositoryImpl implements ReserveRepository {
 
     @Override
     public Reserve getById(Integer id) throws Exception {
-        return springReserveRepository.findById(id).orElseThrow(() -> new Exception("id not found"));
+        return springReserveRepository.findById(id).orElseThrow(() -> new Exception("id reserve not found"));
     }
 
     @Override

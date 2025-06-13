@@ -1,6 +1,10 @@
 package ar.com.barnies.barnieshostel.services.Reserve;
 
 import ar.com.barnies.barnieshostel.models.Reserve.Reserve;
+import ar.com.barnies.barnieshostel.models.User.User;
+import ar.com.barnies.barnieshostel.models.room.Room;
+import ar.com.barnies.barnieshostel.services.User.UserService;
+import ar.com.barnies.barnieshostel.services.room.RoomService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,14 +13,20 @@ import java.util.List;
 public class ReserveServiceImpl implements ReserveService{
 
     private final ReserveRepository reserveRepository;
+    private final UserService userService;
+    private final RoomService roomService;
 
-    public ReserveServiceImpl(ReserveRepository reserveRepository) {
+    public ReserveServiceImpl(ReserveRepository reserveRepository, UserService userService, RoomService roomService) {
         this.reserveRepository = reserveRepository;
+        this.userService = userService;
+        this.roomService = roomService;
     }
 
     @Override
     public void createReserve(Reserve reserve) throws Exception {
-        //Revisar que el userId exista, revisar que el room id exista.
+
+        User userExist = userService.getUserById(reserve.getUserId());
+        Room roomExist = roomService.getRoomById(reserve.getRoomId());
 
         List<Reserve> reservesOccupated = reserveRepository.findConflictingReserves(reserve.getRoomId(), reserve.getCheckInDate(), reserve.getCheckOutDate());
 

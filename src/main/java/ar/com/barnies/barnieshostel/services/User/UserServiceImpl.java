@@ -47,6 +47,5 @@ public class UserServiceImpl implements UserService{
             throw new RuntimeException("User does not exist");
         }
         userRepository.update(user);
-        userRepository.update(user);
     }
 }
