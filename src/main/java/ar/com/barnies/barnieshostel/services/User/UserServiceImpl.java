@@ -1,12 +1,15 @@
 package ar.com.barnies.barnieshostel.services.User;
 
+import ar.com.barnies.barnieshostel.exceptions.UserAlreadyExistsException;
+import ar.com.barnies.barnieshostel.exceptions.UserNotFoundException;
 import ar.com.barnies.barnieshostel.models.User.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -16,12 +19,13 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void createUser(User user) {
-        /*boolean exist = userRepository.getAll()
-                .stream()
+        boolean exists = userRepository.getAll().stream()
                 .anyMatch(u -> u.getDni().equals(user.getDni()));
-        if (exist) {
-            throw new RuntimeException("User already exists");
-        }*/
+
+        if (exists) {
+            throw new UserAlreadyExistsException("El usuario con DNI " + user.getDni() + " ya existe.");
+        }
+
         userRepository.create(user);
     }
 
@@ -31,28 +35,32 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUserById(Integer id) throws Exception{
-        return userRepository.getByID(id);
+    public User getUserById(Integer id) {
+        return userRepository.getByID(id)
+                .orElseThrow(() -> new UserNotFoundException("Usuario con ID " + id + " no encontrado."));
     }
 
     @Override
     public void deleteUser(Integer id) {
+        if (userRepository.getByID(id).isEmpty()) {
+            throw new UserNotFoundException("Usuario con ID " + id + " no encontrado.");
+        }
         userRepository.delete(id);
     }
 
     @Override
-    public void updateUser(User user) throws Exception {
-        User existing = userRepository.getByID(user.getUserID());
-        if (existing == null) {
-            throw new RuntimeException("User does not exist");
+    public void updateUser(User user) {
+        Optional<User> existing = userRepository.getByID(user.getUserID());
+        if (existing.isEmpty()) {
+            throw new UserNotFoundException("No se puede actualizar, el usuario no existe.");
         }
 
         if (user.getDni() == null) {
-            user.setDni(existing.getDni());
+            user.setDni(existing.get().getDni());
         }
 
         if (user.getUsername() == null) {
-            user.setUsername(existing.getUsername());
+            user.setUsername(existing.get().getUsername());
         }
 
         userRepository.update(user);
